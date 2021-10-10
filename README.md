@@ -1,3 +1,4 @@
+[![Build Status](https://app.travis-ci.com/NamoSmith/ku-polls.svg?branch=iteration2)](https://app.travis-ci.com/NamoSmith/ku-polls)
 # KU Polls
 A web application for conducting polls at [Kasetsart University](https://www.ku.ac.th/th).
 ## Project Documents
