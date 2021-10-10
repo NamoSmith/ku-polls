@@ -1,5 +1,5 @@
+"""URL files to link between each page in the app."""
 from django.urls import path
-
 from . import views
 
 app_name = 'polls'

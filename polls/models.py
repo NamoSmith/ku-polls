@@ -30,7 +30,7 @@ class Question(models.Model):
         """Return true if question are in the time that it can be voted."""
         now = timezone.now()
         return self.is_published() and now <= self.end_date
-      
+
     was_published_recently.admin_order_field = 'pub_date'
     was_published_recently.boolean = True
     was_published_recently.short_description = 'Published recently?'
