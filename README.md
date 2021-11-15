@@ -11,3 +11,12 @@ A web application for conducting polls at [Kasetsart University](https://www.ku.
 * [Iteration1 Plan](../../wiki/Iteration1%20Plan)
 * [Iteration2 Plan](../../wiki/Iteration2%20Plan)  
 * [Iteration3 Plan](../../wiki/Iteration3%20Plan)
+
+## Running KU Polls  
+
+Users provided by the initial data (users.json):
+
+| Username   | Password        |
+|------------|-----------------|
+| test01     | hello123456    |
+| test02     | hello123456    |
