@@ -1,4 +1,7 @@
-<!DOCTYPE html>
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
+
 <html lang="en">
 <body>
     <h2>Register</h2>
@@ -13,5 +16,7 @@
         </tr>
         </table>
     </form>
+
+    <a href="{% url 'polls:index' %}"><button>Back to Polls List</button></a>
 </body>
 </html>
