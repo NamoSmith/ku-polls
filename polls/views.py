@@ -1,10 +1,16 @@
 """Programs for the view of polls."""
+import logging
+from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
-from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
-from .models import Question, Choice
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.dispatch import receiver
+from django.contrib.auth.signals import user_logged_in, user_logged_out, user_login_failed
+
+from .models import Choice, Question, Vote
 
 
 class IndexView(generic.ListView):
@@ -25,6 +31,7 @@ class IndexView(generic.ListView):
 
 class DetailView(generic.DetailView):
     """Detail View Class."""
+
     model = Question
     template_name = 'polls/detail.html'
 
@@ -35,12 +42,15 @@ class DetailView(generic.DetailView):
 
 class ResultsView(generic.DetailView):
     """Result View class."""
+
     model = Question
     template_name = 'polls/result.html'
 
 
+@login_required(login_url='/accounts/login/')
 def vote(request, question_id):
     """If there is no vote, redirect users to the page before and print an error message."""
+
     question = get_object_or_404(Question, pk=question_id)
     try:
         selected_choice = question.choice_set.get(pk=request.POST['choice'])
@@ -54,3 +64,51 @@ def vote(request, question_id):
         selected_choice.votes += 1
         selected_choice.save()
         return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
+
+
+def show_detail(request, pk):
+    """Question detail page show the questions and choices for voting."""
+
+    question = get_object_or_404(Question, pk=pk)
+    if not question.can_vote():
+        messages.error(
+            request,
+            f'Error: poll "{question.question_text}" is no longer publish.'
+        )
+        return HttpResponseRedirect(reverse('polls:index'))
+    return render(request, 'polls/detail.html', {'question': question})
+
+
+logger = logging.getLogger("polls")
+
+
+def get_client_ip(request):
+    """Get the visitor’s IP address using request headers."""
+
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip
+
+
+@receiver(user_logged_in)
+def login_logging(sender, request, user, **kwargs):
+    """Show a logging info after the user is logged in."""
+
+    logger.info(f"User: {user.username} logged in from {get_client_ip(request)}")
+
+
+@receiver(user_logged_out)
+def logout_logging(sender, request, user, **kwargs):
+    """Show a logging info after the user is logged out."""
+
+    logger.info(f"User: {user.username} logged out from {get_client_ip(request)}")
+
+
+@receiver(user_login_failed)
+def failed_login_logging(sender, request, credentials, **kwargs):
+    """Show a warning logging info after the user enters wrong username or password."""
+
+    logger.warning(f"Invalid login attempt for User: {credentials['username']} from {get_client_ip(request)}")
