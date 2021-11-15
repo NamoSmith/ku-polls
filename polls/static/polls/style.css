@@ -2,5 +2,12 @@ li a {
     color: green;
 }
 body {
-    background: white url("images/background.gif") no-repeat;
+    background: white url("images/background.jpg") no-repeat;
+    background-size: 100% 100%;
+}
+p{
+    font-size: 30px;
+}
+h2{
+    font-size: 50px;
 }

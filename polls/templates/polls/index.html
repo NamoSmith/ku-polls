@@ -2,11 +2,13 @@
 
 <link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
 
+<h2>Polls</h2>
+
 {% if latest_question_list %}
     <ul>
     {% for question in latest_question_list %}
         <li>
-            {{ question.question_text }}
+            <p>{{ question.question_text }}</p>
             {% if question.can_vote %}
             <a href="{% url 'polls:detail' question.id %}"><button>vote</button></a>
             {% endif %}
