@@ -8,9 +8,19 @@ A web application for conducting polls at [Kasetsart University](https://www.ku.
 * [Home](../../wiki/Home)
 * [Vision Statement](../../wiki/Vision%20Statement)   
 * [Requirements](../../wiki/Requirements)
-* [Iteration1 Plan](../../wiki/Iteration1%20Plan)
-* [Iteration2 Plan](../../wiki/Iteration2%20Plan)  
-* [Iteration3 Plan](../../wiki/Iteration3%20Plan)
+
+## Iterations
+
+### Iteartion 1
+* [Iteration 1 Plan](../../wiki/Iteration1%20Plan)
+* [Iteration 1 TaskBoard](../../projects/1)
+### Iteartion 2
+* [Iteration 2 Plan](../../wiki/Iteration2%20Plan)
+* [Iteration 2 TaskBoard](../../projects/3)
+### Iteartion 3
+* [Iteration 3 Plan](../../wiki/Iteration3%20Plan)
+* [Iteration 3 TaskBoard](../../projects/4)
+
 
 ## How to run and get the initial data.
 
