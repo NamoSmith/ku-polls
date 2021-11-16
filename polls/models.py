@@ -3,6 +3,7 @@
 import datetime
 from django.db import models
 from django.utils import timezone
+import django.contrib.auth.models
 from django.contrib.auth.models import User
 
 
@@ -42,22 +43,30 @@ class Choice(models.Model):
 
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     choice_text = models.CharField(max_length=200)
-    votes = models.IntegerField(default=0)
 
     def __str__(self):
         """Return choices"""
 
         return self.choice_text
 
+    @property
+    def votes(self):
+        """Return sum of the vote for a choice."""
+        return Vote.objects.filter(choice=self).count()
+
 
 class Vote(models.Model):
     """Class for voting in polls questions."""
 
-    question = models.ForeignKey(Question, on_delete=models.CASCADE, default=0)
-    choice = models.ForeignKey(Choice, on_delete=models.CASCADE, default=0)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, default=0)
+    choice = models.ForeignKey(Choice, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         """Return the question and choice selected."""
 
         return f"{self.question} has been voted with {self.choice}"
+
+    @property
+    def question(self):
+        """Get the question that this vote applies to."""
+        return self.choice.question
