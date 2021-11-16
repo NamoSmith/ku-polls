@@ -10,5 +10,8 @@
 {% endfor %}
 </ul>
 
+{% if question.can_vote %}
 <a href="{% url 'polls:detail' question.id %}">Click here to vote.</a>
+{% endif %}
+
 <a href="{% url 'polls:index' %}"><button>Back to Polls List</button></a>
