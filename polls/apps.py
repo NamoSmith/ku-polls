@@ -1,4 +1,5 @@
 """The Django config for polls application."""
+
 from django.apps import AppConfig
 
 

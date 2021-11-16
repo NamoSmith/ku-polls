@@ -14,20 +14,24 @@ class Question(models.Model):
 
     def __str__(self):
         """Return questions."""
+
         return self.question_text
 
     def was_published_recently(self):
         """Return true if question published recently."""
+
         now = timezone.now()
         return now - datetime.timedelta(days=1) <= self.pub_date <= now
 
     def is_published(self):
         """Return true if question is published."""
+
         now = timezone.now()
         return now >= self.pub_date
 
     def can_vote(self):
         """Return true if question are in the time that it can be voted."""
+
         now = timezone.now()
         return self.is_published() and now <= self.end_date
 
