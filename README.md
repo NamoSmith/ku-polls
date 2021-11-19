@@ -24,9 +24,9 @@ A web application for conducting polls at [Kasetsart University](https://www.ku.
 
 ## How to run and get the initial data.
 
-1. ```python manage.py migrate```   
-2. ```python manage.py runserver```  
-3. ```python manage.py loaddata users polls```
+1. ```python manage.py migrate```  
+2. ```python manage.py loaddata users polls``` 
+3. ```python manage.py runserver```
 
 ## Running KU Polls  
 
